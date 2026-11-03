@@ -40,3 +40,5 @@ Código do jogo MIT. **p5.js é LGPL-2.1**, preservado num arquivo ESM separado 
 Sem backend, conta, chaves, API remota, compras, cartão, faturamento ou trial. Preferências e recordes ficam no localStorage deste navegador. Rodada em andamento não é salva. Sem sincronização, garantia offline ou gamepad. Dados locais são modificáveis pelo próprio usuário. As tramas e o visual são próprios, sem importar jogos, níveis ou assets comerciais.
 
 [Design](docs/game-design.md) · [Validação e limites](docs/validation.md)
+
+![Carretel concluído na demo pública](docs/public-gameplay.png)

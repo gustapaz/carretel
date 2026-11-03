@@ -97,7 +97,7 @@ function render() {
       state.weave * 3 + ["treino", "cadencia", "giro"].indexOf(mode)
     ];
   $("#record").textContent =
-    `${patterns[state.weave].name} / ${modes[mode].label}: ${r.played} rodadas · ${r.wins} vitórias · recorde ${r.best}`;
+    `${patterns[state.weave].name} / ${modes[mode].label}: ${r.played} ${r.played === 1 ? "rodada" : "rodadas"} · ${r.wins} ${r.wins === 1 ? "vitória" : "vitórias"} · recorde ${r.best}`;
   $("#map").textContent =
     `Cabeça: ${position(state.body[0])}. Carretel: ${position(state.food)}. Nós: ${state.knots.map(position).join("; ")}. Fita, da cabeça à ponta: ${state.body.map(position).join("; ")}.`;
   $("#sound").textContent = save.sound ? "Som ligado" : "Som desligado";

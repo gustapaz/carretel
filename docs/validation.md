@@ -21,8 +21,16 @@ Executada em 03/11/2026, Node 24, Windows e Chromium do navegador integrado.
 
 Hospedagem estática de repositório público no GitHub Pages, disponível no GitHub Free: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages . Sem cartão, trial, API remota, conta adicional ou serviço com consumo faturável. Preferências e recordes são locais; não há dados pessoais ou credenciais de demonstração.
 
-Scanner, histórico, clone remoto, autoria, CI e artefato público serão registrados após publicação.
+Gitleaks 8.30.1, regras externas e saída redigida: staged, histórico completo, export e clone novo do remoto sem achados. API GitHub confirmou somente `gustapaz` como contribuidor e autor/committer `Gustavo Paz <96732649+gustapaz@users.noreply.github.com>`. Secret scanning, proteção de push e atualizações de segurança habilitados. Implementação `4fede22df215ad626aba68f2ab26fb7cbc70a131`, CI inicial `41632962040`.
 
 ## Limites
 
 Não foi executada auditoria integral de leitor de tela ou Safari. O mapa em texto apoia o Treino, sem promessa de equivalência plena do arcade em tempo real. Código trata blur/visibility/BFCache, mas a troca física de foco não foi comprovada em todos os navegadores. As colisões são em casas, não interseções contínuas entre traços. Seeds fixas e rotas demonstram vencibilidade, não que qualquer jogada continue recuperável nem diversão medida com pessoas independentes. Sem save de rodada, ranking confiável, sincronização ou garantia offline. Scans/testes não constituem garantia de invulnerabilidade.
+
+## Demo pública
+
+- https://gustapaz.github.io/carretel/ : vitórias completas nas três tramas em Treino (64/54/69 pulsos e 1072/1092/1062 pontos).
+- Cadência/Ponto aberto: vitória com relógio real de 650 ms, 64 pulsos e 1072 pontos. Giro/Entrelaço: vitória com relógio real de 400 ms, 54 pulsos e 1092 pontos. Não houve injeção de estado ou relógio nesses ensaios.
+- Giro/Entrelaço manteve uma rodada/uma vitória/recorde 1092 após alternar preferências, abrir manual e recarregar, comprovando ausência de registro duplicado. Som e movimento reduzido persistiram. Pluralização dos contadores corrigida no acabamento.
+- Avesso também concluído por botões em viewport móvel 390 × 844: 69 pulsos, 1062 pontos. Derrota pública por nó aos três pulsos; pausa no pulso zero. Screenshots public-gameplay.png e public-mobile.png registram a versão de implementação antes do ajuste apenas textual dos contadores.
+- Seis arquivos do deploy inicial idênticos byte a byte ao build local, incluindo biblioteca p5 modular e avisos de licença. Comparação repetida após o deploy final.
