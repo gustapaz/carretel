@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#672338" />
+    <meta
+      name="description"
+      content="Não deixe o fio virar nó. Carretel é um arcade circular original de três pistas: recolha oito carretéis, evite os nós e não cruze a própria fita."
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <title>Carretel — não deixe o fio virar nó</title>
+    <link rel="icon" href="./favicon.svg" />
+    <link rel="stylesheet" href="./game.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="wordmark">carretel<span aria-hidden="true">✳</span></span>
+        <p>UM PEQUENO ARCADE<br />DE GRANDES ENROSCOS.</p>
+        <nav aria-label="Configurações">
+          <button id="help">Como jogar ↗</button
+          ><button id="sound" aria-pressed="false">Som desligado</button
+          ><button id="motion" aria-pressed="false">Menos movimento</button>
+        </nav>
+      </header>
+      <section class="intro">
+        <span class="edition">ESTÚDIO DO FIO / Nº 016</span>
+        <h1>Não deixe o fio<br /><em>virar nó.</em></h1>
+        <div class="chooser">
+          <label
+            >TRAMA<select id="weave">
+              <option value="0">01 · Ponto aberto</option>
+              <option value="1">02 · Entrelaço</option>
+              <option value="2">03 · Avesso</option>
+            </select></label
+          ><label
+            >RITMO<select id="mode">
+              <option value="treino">Treino · por ação</option>
+              <option value="cadencia">Cadência · 650 ms</option>
+              <option value="giro">Giro · 400 ms</option>
+            </select></label
+          ><button id="start" disabled>Preparando o fio…</button>
+        </div>
+      </section>
+      <section class="game-layout" aria-label="Partida">
+        <aside class="margin-note">
+          <span>POR DENTRO.<br />POR FORA.<br />SEMPRE EM FRENTE.</span
+          ><b aria-hidden="true">↻</b>
+        </aside>
+        <div
+          class="arena"
+          id="arena"
+          tabindex="0"
+          role="group"
+          aria-label="Arena circular. Setas para mudar pista, espaço para manter, Escape para pausar."
+        >
+          <div id="canvas"></div>
+          <p id="loading">Preparando o disco…</p>
+          <div class="badge"><span id="phase">PRONTO PARA ENROLAR</span></div>
+        </div>
+        <aside class="ticker">
+          <span>POSIÇÃO DA CABEÇA</span><strong id="lane">2</strong
+          ><span>PISTA / DE DENTRO PARA FORA</span>
+          <p>
+            SETOR <b id="sector">01</b><br />PULSO <b id="ticks">0</b
+            ><br />PONTOS <b id="score">0</b>
+          </p>
+          <span class="queued" id="queued">PRÓXIMA: MANTER</span>
+        </aside>
+      </section>
+      <div id="error" hidden role="alert">
+        Não foi possível preparar o desenho. Recarregue para tentar novamente.
+        Use um navegador com Canvas 2D.
+      </div>
+      <section class="controls" aria-label="Controles">
+        <button id="inner" disabled>
+          <span>↖</span> Para dentro <small>← / ↑ / A</small></button
+        ><button id="hold" disabled>
+          <span>↻</span> Manter pista <small>ESPAÇO / ENTER</small></button
+        ><button id="outer" disabled>
+          <span>↗</span> Para fora <small>→ / ↓ / D</small></button
+        ><button id="pause" disabled>Pausar<br /><small>ESC / P</small></button>
+      </section>
+      <p id="message" role="status">
+        Recolha oito carretéis. A fita avança sempre no sentido horário.
+      </p>
+      <section class="result" id="result" hidden aria-label="Resultado">
+        <h2 id="result-title"></h2>
+        <p id="result-detail"></p>
+        <button id="again">Tecer outra vez ↗</button>
+      </section>
+      <section class="bottom">
+        <div>
+          <span class="eyebrow">SEU ARQUIVO / SOMENTE NESTE NAVEGADOR</span>
+          <p id="record"></p>
+          <small
+            >Três tramas × três ritmos. Cada combinação guarda seu próprio
+            recorde.</small
+          >
+        </div>
+        <details>
+          <summary>Mapa em texto + regras rápidas</summary>
+          <p id="map"></p>
+          <p>
+            A pista 1 é interna; a 3 é externa. Setores 1–12 seguem o relógio. O
+            círculo tracejado marca a próxima casa. Nos ritmos contínuos, cada
+            comando prepara apenas o próximo pulso; depois a intenção volta a
+            manter.
+          </p>
+          <p>
+            Carretéis alongam a fita. X é nó. Encostar em nó ou corpo encerra a
+            rodada; o rabo pode sair no mesmo pulso, exceto ao crescer. Há 180
+            pulsos de fio. No treino você decide quando avançar.
+          </p>
+        </details>
+      </section>
+      <footer>
+        <span>SEM CONTAS. SEM COMPRAS. SÓ MAIS UMA VOLTA.</span
+        ><span>A rodada em andamento não é salva.</span>
+      </footer>
+      <dialog id="dialog" aria-labelledby="dialog-title">
+        <span class="eyebrow">CARRETEL / RESPIRE ENTRE OS PONTOS</span>
+        <h2 id="dialog-title"></h2>
+        <div id="dialog-body"></div>
+        <button id="resume">Voltar ao fio ↗</button>
+        <button id="menu" hidden>Trocar trama ou ritmo</button>
+      </dialog>
+    </main>
+    <noscript
+      >Ative JavaScript para jogar Carretel. Sem conta ou compras.</noscript
+    >
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>
