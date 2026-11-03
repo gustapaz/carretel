@@ -35,7 +35,7 @@ Servidor local http://127.0.0.1:4257 serve o export e observa JS/TS/CSS. Altera�
 
 ## Licenças, dados e limites
 
-Código do jogo MIT. **p5.js é LGPL-2.1**, preservado num arquivo ESM separado e substituível `p5.js`; não se torna MIT. Versão exata e receita modular no lockfile/script de build; fonte em https://github.com/processing/p5.js/tree/v2.3.4 . Licenças das dependências efetivamente incluídas acompanham `third-party.txt` e comentários legais do bundle. [Assets](docs/assets.md).
+Código do jogo MIT. **p5.js é LGPL-2.1**, preservado num arquivo ESM separado e substituível `p5-[hash].js`; não se torna MIT. Versão exata e receita modular no lockfile/script de build; fonte em https://github.com/processing/p5.js/tree/v2.3.4 . Licenças das dependências efetivamente incluídas acompanham `third-party.txt` e comentários legais do bundle. [Assets](docs/assets.md).
 
 Sem backend, conta, chaves, API remota, compras, cartão, faturamento ou trial. Preferências e recordes ficam no localStorage deste navegador. Rodada em andamento não é salva. Sem sincronização, garantia offline ou gamepad. Dados locais são modificáveis pelo próprio usuário. As tramas e o visual são próprios, sem importar jogos, níveis ou assets comerciais.
 

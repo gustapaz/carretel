@@ -34,3 +34,7 @@ Não foi executada auditoria integral de leitor de tela ou Safari. O mapa em tex
 - Giro/Entrelaço manteve uma rodada/uma vitória/recorde 1092 após alternar preferências, abrir manual e recarregar, comprovando ausência de registro duplicado. Som e movimento reduzido persistiram. Pluralização dos contadores corrigida no acabamento.
 - Avesso também concluído por botões em viewport móvel 390 × 844: 69 pulsos, 1062 pontos. Derrota pública por nó aos três pulsos; pausa no pulso zero. Screenshots public-gameplay.png e public-mobile.png registram a versão de implementação antes do ajuste apenas textual dos contadores.
 - Seis arquivos do deploy inicial idênticos byte a byte ao build local, incluindo biblioteca p5 modular e avisos de licença. Comparação repetida após o deploy final.
+
+## Cache de publicação
+
+A conferência final encontrou script anterior no cache do navegador, apesar do servidor já servir o build correto. O empacotamento passou a gerar nomes com hash para o jogo, CSS e módulo p5; o HTML aponta para os arquivos correspondentes. Arquivos antigos de build são removidos somente dentro de dist, com nome e diretório verificados. A receita e as licenças do módulo substituível p5 permanecem disponíveis.

@@ -5,7 +5,10 @@ import {
   readFile,
   writeFile,
   readdir,
+  unlink,
 } from "node:fs/promises";
+import { resolve, dirname, basename } from "node:path";
+const dist = resolve("dist");
 await mkdir("dist", { recursive: true });
 for (const f of ["index.html", "favicon.svg"])
   await copyFile("public/" + f, "dist/" + f);
@@ -28,8 +31,12 @@ const vendor = await build({
     resolveDir: process.cwd(),
     sourcefile: "p5-entry.js",
   },
-  outfile: "dist/p5.js",
+  outdir: "dist",
+  entryNames: "p5-[hash]",
 });
+const vendorName = basename(
+  Object.keys(vendor.metafile.outputs).find((p) => p.endsWith(".js")),
+);
 const bundled = new Set(
   Object.keys(vendor.metafile.inputs).map(
     (path) =>
@@ -63,19 +70,52 @@ for (const [path, entry] of Object.entries(lock.packages)) {
     else throw Error("License file requires review: " + path);
   }
 }
-await writeFile("dist/third-party.txt", notices);
+await writeFile(
+  "dist/third-party.txt",
+  notices.replace("p5.js and", vendorName + " and"),
+);
 const options = {
   ...common,
   entryPoints: ["src/main.ts"],
-  outfile: "dist/game.js",
+  outdir: "dist",
+  entryNames: "game-[hash]",
+  metafile: true,
   plugins: [
     {
       name: "local-p5",
       setup(b) {
         b.onResolve({ filter: /^p5$/ }, () => ({
-          path: "./p5.js",
+          path: "./" + vendorName,
           external: true,
         }));
+      },
+    },
+    {
+      name: "versioned-html",
+      setup(b) {
+        b.onEnd(async (result) => {
+          if (result.errors.length) return;
+          const output = Object.keys(result.metafile.outputs).find((p) =>
+            p.endsWith(".js"),
+          );
+          const js = basename(output),
+            css = basename(result.metafile.outputs[output].cssBundle);
+          const html = (await readFile("public/index.html", "utf8"))
+            .replace("./game.js", "./" + js)
+            .replace("./game.css", "./" + css);
+          await writeFile("dist/index.html", html);
+          const keep = new Set([js, css, vendorName]);
+          for (const file of await readdir(dist)) {
+            if (
+              !/^(game|p5)(-[A-Z0-9]{8})?\.(js|css)$/.test(file) ||
+              keep.has(file)
+            )
+              continue;
+            const path = resolve(dist, file);
+            if (dirname(path) !== dist) throw Error("Unsafe output path");
+            await unlink(path);
+          }
+        });
       },
     },
   ],
