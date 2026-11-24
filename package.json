@@ -9,7 +9,7 @@
     "dev": "node scripts/build.mjs --serve"
   },
   "dependencies": {
-    "p5": "2.3.4"
+    "p5": "2.4.0"
   },
   "devDependencies": {
     "esbuild": "0.28.2",
